@@ -165,8 +165,8 @@ int main(int argc, char **argv)
     const char *output_dir = argc > 1 ? argv[1] : "output";
     const SystemParameters params = {
         .mass = 1.0,
-        .wall_k = 25.0,
-        .coupling_k = 7.0,
+        .wall_k = 50.0,
+        .coupling_k = 30.0,
     };
     const size_t sample_count = 1024U;
     const double dt = 0.125;
