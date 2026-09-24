@@ -8,16 +8,11 @@ $$
 
 The programs is run inserting:
 
-- The size $ N*N $ of the matrices 
-- The values a and b for the diagonal matrices A B
-- The output file name for the matrix C
+- The size $N*N$ of the matrices 
+- The values a and b for the diagonal matrices $A$ $B$
+- The output file name for the matrix $C$
 
-2 different loops for the algorithm are tested:
-- a naive "ijk" loop
-- the cache optimized "ikj" loop
+The program compares the computation time of the ijk loop vs the ikj loop.
 
-and their computing time is benchmarked
-
-Also 2 checking algoritms are tested and benchmarked:
-- the naive element by element checker (with fix value calculation in the loop)
-- a slightly optimized without branching and with only 1 operation in the loop
+The output matrix values are tested with a threshold against the value $c$ computed only once.\
+One function compares all the elements of the matrix, while the other only checks the diagonal since $C$ is the product of two diaganl matrices.
