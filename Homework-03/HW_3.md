@@ -6,11 +6,11 @@ $$
 C=AB\to C_{ij}=\sum_{k}A_{ik}B_{jk}
 $$
 
-The programs allow the user to specify from terminal:
+The programs is run inserting:
 
-- The size $ N*N $ of the matricies A and B
-- The value of all the elements of A and B
-- The output file in which the matrix would be written
+- The size $ N*N $ of the matrices 
+- The values a and b for the diagonal matrices A B
+- The output file name for the matrix C
 
 2 different loops for the algorithm are tested:
 - a naive "ijk" loop
