@@ -9,26 +9,16 @@ Parameters used: `lmax = 50`, backward start index `L = 80`,
 
 ## Answers
 
-**Is the forward recurrence stable?**
-Yes. For all four values of `x` and all `l = 0..50`, the double-precision
+- For all four values of `x` and all `l = 0..50`, the double-precision
 forward recurrence agrees with the long-double reference to within a few
-units of machine epsilon (relative error ≲ 1.1e‑14, i.e. essentially
-roundoff noise that grows mildly with `l` but never accumulates). Bonnet's
-recurrence is therefore stable in the forward direction for ordinary
-Legendre polynomials on this range of `x`.
+units of machine epsilon.
 
-**Does the backward (Miller-style) experiment recover `P_l(x)`?**
-No. Starting from the arbitrary pair `P̃_{L+1}=0`, `P̃_L=1` and rescaling so
-that `P̃_0 = 1` gives values that differ from `P_l(x)` by O(0.1)–O(10) in
-absolute terms and by O(1)–O(100) in relative terms — errors many orders of
-magnitude larger than roundoff, and not concentrated at one end of the
-range: they persist across all `l`. Repeating the experiment with a much
-larger starting index (`L = 300` instead of 80) does **not** systematically
-shrink these errors — for some `x` they even get worse — showing the
-procedure is not converging to `P_l(x)` as `L` increases.
+-  A three-term recurrence has a two-dimensional
+  solution space. For Bonnet's recurrence the two independent solutions are the
+  Legendre functions of the **first kind** `P_l(x)` and of the **second kind**
+  `Q_l(x)`.
 
-**Why does this happen?**
-A linear three-term recurrence has two linearly independent solutions: at
+- A linear three-term recurrence has two linearly independent solutions: at
 each `l` the general solution is a combination of a "dominant" and a
 "minimal" solution. Miller's algorithm recovers the minimal solution
 reliably: propagating *backward* from an arbitrary starting pair works
@@ -38,33 +28,25 @@ solution is exponentially damped out by the time you reach small `l`. That
 trick only works when the two solutions are genuinely separated into a
 dominant and a minimal branch relative to the propagation direction.
 
-For ordinary Legendre polynomials `P_l(x)` on `|x| < 1`, that separation
+- For ordinary Legendre polynomials `P_l(x)` on `|x| < 1`, that separation
 does not hold: both linearly independent solutions of Bonnet's recurrence
-(the polynomial `P_l` and the second-kind solution `Q_l`-like companion)
+(the polynomial `P_l` and the second-kind solution `Q_l`)
 stay comparable in size along the recurrence — neither is exponentially
 suppressed relative to the other in the backward direction. So starting
 Miller's procedure at an arbitrary `(P̃_{L+1}, P̃_L)` does not preferentially
 select `P_l(x)`; it selects a combination that is *not* the Legendre
-sequence, and rescaling by `P̃_0` only fixes one normalization condition —
-it cannot repair a wrong linear combination. That is exactly what the
-data show: consistent O(1)-scale disagreement at every `l`, not the clean
-convergence you would see if the minimal-solution mechanism applied here.
+sequence. That is exactly what the data show: consistent O(1)-scale disagreement at every `l`, not the convergence.
 
-**Conclusion:** the forward recurrence is the right (and stable) tool for
-computing ordinary `P_l(x)` on `|x| < 1`; the backward/Miller approach, as
-specified in the exercise, is a useful cautionary example rather than a
-working method — it would be the right tool only for a recurrence where the
-desired solution is genuinely the minimal one in the backward direction
-(e.g. certain Bessel-function recurrences), which is not the case here.
+- The forward recurrence is the right (and stable) tool for
+computing ordinary `P_l(x)` on `|x| < 1`; the backward/Miller approach would be the right tool only for a recurrence where the
+desired solution is genuinely the minimal one in the backward direction.
 
 **Connection to spherical harmonics.**
 For `m = 0`,
-```
-$Y_{l0}(θ, φ) = sqrt((2l+1)/(4π)) · P_l(cos θ)$
-```
+
+$$Y_{l0}(θ, φ) = \sqrt{\frac{2l+1}{4π}} · P_l(cos θ)$$
+
 so any error in `P_l(cos θ)` propagates directly and linearly into
-`Y_{l0}`, scaled by the known, well-conditioned normalization factor
+`Y_{l0}`, scaled by the normalization factor
 `sqrt((2l+1)/(4π))`. Since the forward recurrence keeps `P_l` accurate to
-roundoff, `Y_{l0}` computed this way is likewise accurate to roundoff;
-had the backward experiment been used instead, the O(1) relative errors
-seen above would carry straight through to `Y_{l0}`, making it useless.
+roundoff, `Y_{l0}` computed this way is likewise accurate to roundoff.
