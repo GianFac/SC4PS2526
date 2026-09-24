@@ -1,5 +1,5 @@
 // Use compiled program enetring the variables for d=ax+y:
-// ./Vec_sum N a x y
+// ./Vec_sum N a x y exp
 	
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,12 +7,13 @@
 
 int main(int argc, char *argv[]) {
 
-    if (argc != 5) {
-        fprintf(stderr, "Usage: %s N a x y\n", argv[0]);
+    if (argc != 6) {
+        fprintf(stderr, "Usage: %s N a x y exp\n", argv[0]);
         fprintf(stderr, "  N : vector dimension (positive integer)\n");
         fprintf(stderr, "  a : scalar (double)\n");
         fprintf(stderr, "  x : uniform vector of elements x (double)\n");
         fprintf(stderr, "  y : uniform vector of elements y (double)\n");
+        fprintf(stderr, "  exp : expected value for a*x+y (double)\n");
         return 1;
     }
 
@@ -21,6 +22,7 @@ int main(int argc, char *argv[]) {
     double a = atof(argv[2]);
     double x_val = atof(argv[3]);
     double y_val = atof(argv[4]);
+    double d_exp = atof(argv[5]);
 
     if (N <= 0) {
         fprintf(stderr, "Error: N must be a positive integer\n");
@@ -44,9 +46,7 @@ int main(int argc, char *argv[]) {
     }
 
 // Check correctness of each element
-    double d_exp = a * x_val + y_val;
     long long errors = 0;
-    
     for (long long i = 0; i < N; i++) {
         if (d[i] != d_exp) {
             errors++;

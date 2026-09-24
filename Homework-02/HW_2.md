@@ -18,5 +18,3 @@ The programs tests each elements of the computed vector sum against the exepcted
 
 The test never passes for `a=3, x=0.1, y=7.1` becasue 0.1 and 7.1 cannot be exactly represented in the floating point format.\
 For example, putting `a=3, x=0.25, y=7.5` gives correctly `d=8.25` because the decimal part can be written as binary fractions.
-
-
